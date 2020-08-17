@@ -4,6 +4,13 @@
 ## Description
 Picturesque is a complete subscription producrt based on Stripe's fictional product to demonstrate its billing/subscription platform. 
 
+## Usage
+Please create a .env file in the root of the project and add the follow variables
+
+```bash
+  STRIPE_SECRET_KEY=
+  NEXT_PUBLIC_STRIPE_PUB_KEY=
+```
 
 ## Installation
 
@@ -22,7 +29,6 @@ Picturesque is a complete subscription producrt based on Stripe's fictional prod
 - Retrieve subscription details
 - Stripe intregration plus handling SCA 3d Secure cards
 - Beautiful UI made with Chakra UI
-
 
 
 ## Stack
