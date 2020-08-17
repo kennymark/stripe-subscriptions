@@ -32,7 +32,13 @@ Picturesque is a complete subscription producrt based on Stripe's fictional prod
 - Stripe 
 
 
-# Todo 
+## Todo 
 - [ ] Fix UI Issue where form persists on multiple pages
 - [ ] Fix updating subscription properly
 - [ ] Implement webhook
+
+
+## Screenshots
+![](screenshots/home.png)
+![](screenshots/plans.png)
+![](screenshots/settings.png)
