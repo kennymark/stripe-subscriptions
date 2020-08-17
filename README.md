@@ -1,7 +1,5 @@
-# Complete Subscriptions starter pack
+# Complete Stripe Subscriptions
 
-
-## Description
 Picturesque is a complete subscription producrt based on Stripe's fictional product to demonstrate its billing/subscription platform. 
 
 ## Usage
@@ -45,6 +43,12 @@ Please create a .env file in the root of the project and add the follow variable
 
 
 ## Screenshots
+
+*Home*
 ![](screenshots/home.png)
+
+*Plans*
 ![](screenshots/plans.png)
+
+*Settings*
 ![](screenshots/settings.png)
