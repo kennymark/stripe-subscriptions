@@ -3,11 +3,12 @@
 Picturesque is a complete subscription producrt based on Stripe's fictional product to demonstrate its billing/subscription platform. 
 
 ## Usage
-Please create a .env file in the root of the project and add the follow variables
+Firstly, ensure you have a Stripe account. Once you have an account, go the customer section and create a customer. Please create a .env file in the root of the project and add the follow variables
 
 ```bash
   STRIPE_SECRET_KEY=
   NEXT_PUBLIC_STRIPE_PUB_KEY=
+  NEXT_PUBLIC_CUSTOMER_ID=
 ```
 
 ## Installation

@@ -1,4 +1,5 @@
 module.exports = {
-  // Force a trailing slash, the default value is no trailing slash (false)
+  generateEtags: true,
+  poweredByHeader: false,
 
 }
