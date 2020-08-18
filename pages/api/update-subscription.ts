@@ -1,4 +1,4 @@
-import stripe from "../../utils/stripe-browser";
+import stripe from "../../utils/stripe-config";
 
 
 

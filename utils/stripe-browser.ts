@@ -24,5 +24,3 @@ const stripeCardOptions = {
 
 export { stripeCardOptions, stripePromise }
 
-
-export default stripe
