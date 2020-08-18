@@ -7,7 +7,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider>
       <CSSReset />
-      <Box marginX="auto" width={600}>
+      <Box marginX="auto" width={600} p={4}>
         <PaymmentProvider>
           <Component {...pageProps} />
         </PaymmentProvider>

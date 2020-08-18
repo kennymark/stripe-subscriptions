@@ -32,9 +32,9 @@ function Signup() {
     <Box >
       <Header />
 
-      <Flex justify='center' mb={20}>
-        <Box size={200} bg='gray.200' mr={3} rounded='lg'></Box>
-        <Box size={200} bg='red.400' rounded='lg' mt={50}></Box>
+      <Flex justify='center' mb={20} direction={['column', 'row',]} align='center'>
+        <Box size={[200, '100%']} bg='gray.200' mr={3} rounded='lg'></Box>
+        <Box size={[200, 400]} bg='red.400' rounded='lg' mt={50}></Box>
       </Flex>
 
       <Box as='form' onSubmit={createCustomer} >
