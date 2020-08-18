@@ -45,6 +45,9 @@ const Header = props => {
         display={{ sm: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
+        <Button variant='ghost' fontWeight={400} onClick={() => Router.push('/pay')}>
+          Pay
+        </Button>
         <Button variant='ghost' fontWeight={400} onClick={() => Router.push('/plans')}>
           Pricing
         </Button>

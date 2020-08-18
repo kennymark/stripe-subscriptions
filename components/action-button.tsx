@@ -16,7 +16,7 @@ export const buttonProps = {
   bg: "red.400"
 } as const
 
-function ActionButton({ children, ...props }: Props) {
+function ActionButton({ children, props }: Props) {
   return (
     <Button
       type="submit"

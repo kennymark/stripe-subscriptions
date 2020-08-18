@@ -20,4 +20,25 @@ const style = (errorColor) => `
 }
  `
 
+const payStyle = (errorColor) => `
+.StripeElement {
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 0.5rem;
+  border: 1px solid;
+  transition: box-shadow 150ms ease;
+  border-color: inherit;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color:${errorColor}
+}
+
+
+ `
+export { payStyle }
 export default style;

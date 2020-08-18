@@ -1,7 +1,7 @@
 import stripe from "../../utils/stripe";
 
 // Change the default invoice settings on the customer to the new payment method
-async function attachPaymentMethodToCustomer({ name, customerId, paymentMethodId }) {
+async function updateCustomerInvoice({ name, customerId, paymentMethodId }) {
   await stripe.customers.update(customerId,
     {
       name,
@@ -21,7 +21,7 @@ export default async (req, res) => {
     return res.status('402').send({ error: { message: error.message } });
   }
 
-  await attachPaymentMethodToCustomer({ name, customerId, paymentMethodId })
+  await updateCustomerInvoice({ name, customerId, paymentMethodId })
 
   // Create the subscription
   const subscription = await stripe.subscriptions.create({

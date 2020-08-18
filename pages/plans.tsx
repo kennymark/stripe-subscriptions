@@ -1,23 +1,22 @@
 import { Heading, Stack, Text } from "@chakra-ui/core";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
 import CheckoutForm from "../components/checkout-form";
 import Header from "../components/header";
 import SubscriptionSegment from "../components/subscription-segment";
+import StripeElements from "../components/stripe-elements";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUB_KEY);
 
-console.log(process.env)
+
 function Subscribe() {
   const [tabIndex, setTabIndex] = useState(0);
 
-
   return (
-    <Elements stripe={stripePromise}>
+    <StripeElements>
 
       <Header title='Sign up' />
-      <Heading color='red.400' size='lg' textAlign='center' mb={10}>Subscribe to a plan</Heading>
+      <Heading color='red.400' size='lg' textAlign='center' mb={10}>
+        Subscribe to a plan
+      </Heading>
 
       <SubscriptionSegment tabIndex={tabIndex} onChange={val => setTabIndex(val)} />
 
@@ -26,9 +25,9 @@ function Subscribe() {
         <Text fontWeight={700} fontSize={20} textAlign='center' >Subscription will start now</Text>
 
         <CheckoutForm selectedTab={tabIndex} />
-
       </Stack>
-    </Elements >
+
+    </StripeElements>
   )
 }
 

@@ -21,6 +21,7 @@ function PaymmentProvider({ children }) {
   const [priceId, setPriceId] = useState(basicPriceId)
   const [customer, setCustomer] = useState() as any
   const customerId = customer ? customer.id : process.env.NEXT_PUBLIC_CUSTOMER_ID
+  
   useEffect(() => { }, [selectedSubscription, priceId, customer])
 
   return (
