@@ -6,7 +6,7 @@ import useCountries from "use-countries";
 import ActionButton from "../components/action-button";
 import { payStyle } from "../components/checkout.style";
 import Header from "../components/header";
-import { stripeCardOptions } from "../utils/stripe";
+import { stripeCardOptions } from "../utils/stripe-browser";
 import { toastOptions } from "../utils/toast-options";
 
 

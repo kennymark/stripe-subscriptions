@@ -1,4 +1,4 @@
-import stripe from "../../utils/stripe";
+import stripe from "../../utils/stripe-browser";
 
 // Change the default invoice settings on the customer to the new payment method
 async function updateCustomerInvoice({ name, customerId, paymentMethodId }) {
