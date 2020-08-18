@@ -3,7 +3,7 @@
 export const basicPriceId = "price_1HGErUCNCCyfBLO5POz8cQxk";
 export const premiumPriceId = "price_1HGErUCNCCyfBLO582B6fxzL";
 
-import { Box, FormControl, Input, Text, Flex, useToast } from "@chakra-ui/core";
+import { Box, FormControl, Input, Text, Flex, useToast, Image } from "@chakra-ui/core";
 import ActionButton from "../components/action-button";
 import Header from "../components/header";
 import { useState } from "react";
@@ -33,8 +33,9 @@ function Signup() {
       <Header />
 
       <Flex justify='center' mb={20} direction={['column', 'row',]} align='center'>
-        <Box size={[200, '100%']} bg='gray.200' mr={3} rounded='lg'></Box>
-        <Box size={[200, 400]} bg='red.400' rounded='lg' mt={50}></Box>
+        < Image objectFit="cover"
+          size={[250]} bg='gray.200' mr={3} rounded='lg' src='https://images.unsplash.com/photo-1487915650694-c30bafaa5a34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=908&q=80' />
+        <Image objectFit="cover" src='https://images.unsplash.com/photo-1442458017215-285b83f65851?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80' size={[250]} bg='red.400' rounded='lg' mt={50}></Image>
       </Flex>
 
       <Box as='form' onSubmit={createCustomer} >
