@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Heading, Icon } from "@chakra-ui/core";
+import { Box, Button, Flex, Heading, Icon } from "@chakra-ui/react";
 import Router from "next/router";
 import React from "react";
-
+import { TriangleUpIcon } from '@chakra-ui/icons'
 
 
 const Header = props => {
@@ -20,7 +20,7 @@ const Header = props => {
       {...props}
     >
       <Flex align="center" mr={5}>
-        <Icon name="triangle-up" mr={3} fontSize={20} />
+        <TriangleUpIcon mr={3} fontSize={20} />
 
         <Heading as="h3" fontSize={30} cursor='pointer' onClick={() => Router.push('/')}>
           Picturesque

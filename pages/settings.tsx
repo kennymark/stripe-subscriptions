@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import http from 'axios'
-import { usePayment } from '../context/payment-context';
-
-import Header from '../components/header';
-import { Heading, Box, Icon, Flex, Text, useToast } from '@chakra-ui/core';
-import { toastOptions } from '../utils/toast-options';
-import SubscriptionSegment from '../components/subscription-segment';
+import { ArrowForwardIcon } from '@chakra-ui/icons';
+import { Box, Flex, Heading, Text, useToast } from '@chakra-ui/react';
+import http from 'axios';
+import React, { useEffect, useState } from 'react';
 import ActionButton from '../components/action-button';
+import Header from '../components/header';
+import SubscriptionSegment from '../components/subscription-segment';
+import { usePayment } from '../context/payment-context';
+import { toastOptions } from '../utils/toast-options';
 
 
 function AccountSettings() {
@@ -17,10 +17,11 @@ function AccountSettings() {
   const [updateComplete, setUpdatedComplete] = useState(false)
   const toast = useToast()
   const [card, setCard] = useState() as any
-
+  const [portalUrl, setPortalUrl] = useState()
 
   useEffect(() => {
     getCustomer()
+
   }, [updateComplete])
 
   const getCustomer = async () => {
@@ -30,6 +31,9 @@ function AccountSettings() {
     setCard(data.invoice_settings.default_payment_method.card)
     console.log('customer', data)
 
+    const sess = await http.post('/api/customer-portal', { customerId })
+    setPortalUrl(sess.data)
+    console.log(sess.data)
   }
 
   const findCurrentPlan = () => {
@@ -78,7 +82,6 @@ function AccountSettings() {
   }
 
 
-
   return (
     <>
       <Header title='Sign in' />
@@ -106,12 +109,15 @@ function AccountSettings() {
 
         </Flex>
 
-        <Heading cursor='pointer' fontSize={20} my={3} onClick={toggleSubscriptionPanel}>Change plan <Icon name='arrow-forward' /></Heading>
-        <Heading cursor='pointer' fontSize={20} onClick={cancelSubscription}>Cancel subscription <Icon name='arrow-forward' /></Heading>
+        <Heading cursor='pointer' fontSize={20} my={3} onClick={toggleSubscriptionPanel}>Change plan <ArrowForwardIcon /></Heading>
+        <Heading cursor='pointer' fontSize={20} onClick={cancelSubscription}>Cancel subscription <ArrowForwardIcon /></Heading>
 
 
       </Box>
 
+      <ActionButton as='a' href={portalUrl}>
+        Customer Portal
+      </ActionButton>
     </>
   )
 }

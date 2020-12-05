@@ -1,4 +1,4 @@
-import { Heading, Text, Box, Button } from "@chakra-ui/core";
+import { Heading, Text, Box, Button } from "@chakra-ui/react";
 
 function SubscriptionCard({ type, price, selected = false, ...props }) {
 

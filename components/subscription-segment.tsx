@@ -1,4 +1,4 @@
-import { Tabs, TabList, Tab } from "@chakra-ui/core"
+import { Tabs, TabList, Tab } from "@chakra-ui/react"
 import SubscriptionCard from "./subscription-card"
 import { useEffect } from "react"
 import { basicPriceId, premiumPriceId } from "../pages"

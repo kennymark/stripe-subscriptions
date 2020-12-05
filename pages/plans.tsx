@@ -1,4 +1,4 @@
-import { Heading, Stack, Text } from "@chakra-ui/core";
+import { Heading, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import CheckoutForm from "../components/checkout-form";
 import Header from "../components/header";

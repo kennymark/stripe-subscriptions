@@ -1,4 +1,4 @@
-import { Box, FormControl, FormErrorMessage, FormLabel, Input, useToast } from "@chakra-ui/core";
+import { Box, FormControl, FormErrorMessage, FormLabel, Input, useToast } from "@chakra-ui/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import http from "axios";
 import { useState } from "react";

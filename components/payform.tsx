@@ -1,4 +1,4 @@
-import { Box, FormControl, FormErrorMessage, FormLabel, Heading, Input, Select, useToast, Spinner } from "@chakra-ui/core";
+import { Box, FormControl, FormErrorMessage, FormLabel, Heading, Input, Select, useToast, Spinner, IconButton } from "@chakra-ui/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import http from "axios";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { payStyle } from "../components/checkout.style";
 import Header from "../components/header";
 import { stripeCardOptions } from "../utils/stripe-browser";
 import { toastOptions } from "../utils/toast-options";
-
+import { SearchIcon } from '@chakra-ui/icons'
 
 
 // SCA Card 4000000000003220
@@ -16,11 +16,11 @@ const PayForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
-  const [paid, setPaid] = useState(false);
-  const [processing, setProcessing] = useState(false)
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
-  const [postCode, setPostCode] = useState()
+  const [paid, setPaid] = useState<boolean>(false);
+  const [processing, setProcessing] = useState<boolean>(false)
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [postCode, setPostCode] = useState<string>('')
   const { countries, country, setCountry } = useCountries();
   const [clientSecret, setClientSecret] = useState()
   const toast = useToast()
@@ -92,6 +92,22 @@ const PayForm = () => {
   };
 
 
+  const handleClick = async (event) => {
+    const response = await http.post("/api/create-session");
+    // When the customer clicks on the button, redirect them to Checkout.
+    console.log({ response })
+    const result = await stripe.redirectToCheckout({
+      sessionId: response.data.id,
+    });
+
+    if (result.error) {
+      console.log(result)
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
+    }
+  };
+
   return (
     <Box>
       <Header />
@@ -123,7 +139,7 @@ const PayForm = () => {
 
         <FormControl mb={2}>
           <FormLabel {...labelStyle}>Country</FormLabel>
-          <Select icon='chevron-down' iconSize={8} onChange={({ target }) => setCountry(target.value as any)} focusBorderColor="gray.400">
+          <Select icon={<SearchIcon />} iconSize="8" onChange={({ target }) => setCountry(target.value as any)} focusBorderColor="gray.400">
             {countries.map(item => (
               <option value={item.code} key={item.code}>{item.name}</option>
             ))}
@@ -143,8 +159,14 @@ const PayForm = () => {
         <ActionButton>
           {!processing ? 'Pay £20' : <Processing />}
         </ActionButton>
+
+
+
         <style>{payStyle(errorColor)}</style>
       </Box>
+      <ActionButton onClick={handleClick}>
+        {!processing ? 'Pay £20 with Stripe Checkout' : <Processing />}
+      </ActionButton>
     </Box>
 
   );
