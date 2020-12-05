@@ -1,8 +1,9 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Flex, Heading, Text, useToast } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, useDisclosure, useToast } from '@chakra-ui/react';
 import http from 'axios';
 import React, { useEffect, useState } from 'react';
 import ActionButton from '../components/action-button';
+import ModalDialog from '../components/alert-dialog';
 import Header from '../components/header';
 import SubscriptionSegment from '../components/subscription-segment';
 import { usePayment } from '../context/payment-context';
@@ -18,6 +19,7 @@ function AccountSettings() {
   const toast = useToast()
   const [card, setCard] = useState() as any
   const [portalUrl, setPortalUrl] = useState()
+  const { isOpen, onClose, onOpen } = useDisclosure()
 
   useEffect(() => {
     getCustomer()
@@ -33,7 +35,7 @@ function AccountSettings() {
 
     const sess = await http.post('/api/customer-portal', { customerId })
     setPortalUrl(sess.data)
-    console.log(sess.data)
+
   }
 
   const findCurrentPlan = () => {
@@ -42,21 +44,23 @@ function AccountSettings() {
     } else { setCurrentPlan(1) }
   }
 
-  const cancelSubscription = async () => {
-    const { data } = await http.post('/api/delete-subscription', { subscriptionId })
-    console.log(data)
 
-    if (data.status == 'canceled') {
-      toast({ ...toastOptions, description: 'Subscription canceled', status: 'success' })
-    }
-
-  };
 
   const toggleSubscriptionPanel = () => {
     findCurrentPlan()
     setToggleSubs(!toggleSubs)
   }
 
+  const cancelSubscription = async () => {
+    const { data } = await http.post('/api/delete-subscription', { subscriptionId })
+    console.log(data)
+
+    if (data.status == 'canceled') {
+      toast({ ...toastOptions, description: 'Subscription cancelled', status: 'success' })
+    }
+    getCustomer()
+    onClose()
+  };
 
   const updateSubscription = async () => {
 
@@ -68,7 +72,7 @@ function AccountSettings() {
       toast({ ...toastOptions, title: 'Update complete', description: 'You have successfully updated your card', status: 'success' })
       retrieveUpcomingInvoice({ customerId, subscriptionId, newPriceId: priceId })
     } catch (error) {
-      toast({ ...toastOptions, title: 'Update complete', description: 'You have successfully updated your card', status: 'error' })
+      toast({ ...toastOptions, title: 'Update incomplete', description: 'Could not successfully update your card', status: 'error' })
       setUpdatedComplete(false)
 
     }
@@ -87,6 +91,9 @@ function AccountSettings() {
       <Header title='Sign in' />
       <Heading color='red.400' size='lg' textAlign='center' mb={10}>Account Settings</Heading>
 
+      <ModalDialog title='Cancel Subscription'
+        description='Are you sure you want to cancel your subscription' isOpen={isOpen} onClose={onClose} onYes={cancelSubscription} />
+
       {toggleSubs &&
         <Box mb={10}>
           <SubscriptionSegment tabIndex={currrentPlan} onChange={val => setCurrentPlan(val)} />
@@ -94,26 +101,37 @@ function AccountSettings() {
         </Box>
       }
 
-      <Box rounded='lg' border='1px' borderColor='gray.200' minH={200} p={5}>
-        <Heading fontSize={20} my={3}>Account</Heading>
+      {customer?.subscriptions?.data.length >= 1 &&
+        <>
+          <Box rounded='lg' border='1px' borderColor='gray.200' minH={200} p={5}>
+            <Heading fontSize={20} my={3}>Account</Heading>
 
-        <Flex justify='space-between'>
-          <Text fontSize={18} color='gray.500'>Current plan</Text>
-          <Text fontSize={18} fontWeight='bold' color='gray.500'>{customer?.subscriptions?.data[0].plan.nickname}</Text>
+            <Flex justify='space-between'>
+              <Text fontSize={18} color='gray.500'>Current plan</Text>
+              <Text fontSize={18} fontWeight='bold' color='gray.500'>{customer?.subscriptions?.data[0].plan.nickname}</Text>
 
-        </Flex>
+            </Flex>
 
-        <Flex justify='space-between'>
-          <Text fontSize={18} color='gray.500'>Credit card</Text>
-          <Text fontSize={18} fontWeight='bold' color='gray.500' textTransform='capitalize'>{card?.brand} **** {card?.last4}</Text>
+            <Flex justify='space-between'>
+              <Text fontSize={18} color='gray.500'>Credit card</Text>
+              <Text fontSize={18} fontWeight='bold' color='gray.500' textTransform='capitalize'>{card?.brand} **** {card?.last4}</Text>
 
-        </Flex>
+            </Flex>
 
-        <Heading cursor='pointer' fontSize={20} my={3} onClick={toggleSubscriptionPanel}>Change plan <ArrowForwardIcon /></Heading>
-        <Heading cursor='pointer' fontSize={20} onClick={cancelSubscription}>Cancel subscription <ArrowForwardIcon /></Heading>
+            <Heading cursor='pointer' fontSize={20} my={3} onClick={toggleSubscriptionPanel}>Change plan <ArrowForwardIcon /></Heading>
+            <Heading cursor='pointer' fontSize={20} onClick={onOpen}>Cancel subscription <ArrowForwardIcon /></Heading>
+
+          </Box>
+
+        </>}
+
+      {customer?.subscriptions?.data.length === 0 &&
+        <Box rounded='lg' border='1px' borderColor='gray.200' minH={200} p={5}>
+          <Text align='center' mt={5} fontSize={20} color='gray.500'>You currently don't have any subscriptions</Text>
+        </Box>
+      }
 
 
-      </Box>
 
       <ActionButton as='a' href={portalUrl}>
         Customer Portal
